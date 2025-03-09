@@ -4,6 +4,8 @@ import { createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import SplashScreen from "../Screens/SplashScreen";
 import HomeScreen from "../Screens/HomeScreen";
 import UserScreen from "../Screens/UserScreen";
+import contentScreen from "../Screens/contentScreen";
+
 
 /*import React from 'react'*/
 const Tab = createBottomTabNavigator();
@@ -14,7 +16,8 @@ const TabNavigator = () => {
         <Tab.Navigator initialRouteName="Home">
           <Tab.Screen name="Home" component={HomeScreen} options={{}}/>
           <Tab.Screen name="User" component={UserScreen} options={{}}/>
-       </Tab.Navigator>)
+          <Tab.Screen name="content" component={contentScreen} options={{}}/>
+        </Tab.Navigator>)
    
 }
 
@@ -23,6 +26,8 @@ const AppNavigator = () => {
     <Stack.Navigator initialRouteName="Splash">
         <Stack.Screen name="Splash" component={SplashScreen} options={{headerShown:false}}/>
         <Stack.Screen name="MainTabs" component={TabNavigator} options={{headerShown:false}}/>
+        
+
 
     </Stack.Navigator>
     

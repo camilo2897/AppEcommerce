@@ -18,7 +18,7 @@ const SplashScreen = () => {
     return (
         <View style={Styles.container}>
             <Text>Loading...</Text>
-            <Image source={require('../assets/Ecommerce.png')} Styles={Styles.logo} />
+            <Image source={require('../assets/Logo.png')} Styles={Styles.logo} />
         </View>
     )
 
