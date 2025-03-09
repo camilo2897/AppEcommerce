@@ -14,8 +14,6 @@ const contentScreen = () => {
  }
 
 
-
-
 const Styles =StyleSheet.create({
   container: {
       flex: 1,
@@ -28,5 +26,6 @@ const Styles =StyleSheet.create({
   
 
 });
+
 
 export default contentScreen
