@@ -1,7 +1,7 @@
 export default {
     principal : '#088787',
     variante1 :  '#e4e7e7',
-    variante2 :  '#21b9b7',
+    variante2 :  'white',
     variante3 :  '#437271',
     variante4 :  '#8ee8e6',
     variante5 :  '#024443',

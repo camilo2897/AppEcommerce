@@ -7,7 +7,7 @@ import color from '../constants/color';
 
 const HomeScreen = () => {
   return (
-    <LinearGradient colors={color.gradienteSecundario} style={Styles.container}>
+    <LinearGradient colors={color.gradientePrimario} style={Styles.container}>
       <Text style={Styles.Text}>HomeScreen</Text>
     </LinearGradient>
   )

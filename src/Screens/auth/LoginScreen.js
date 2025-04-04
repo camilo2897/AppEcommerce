@@ -86,13 +86,14 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   buttonText: {
-    color: 'fff',
+    color: color.variante2,
     fontSize: 16,
     fontWeight: 'bold',
   },
   inputWrapper: {
     width: '100%',
     marginBottom: 15,
+    backgroundColor: color.variante2,
   },
 });
 
