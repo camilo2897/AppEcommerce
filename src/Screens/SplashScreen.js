@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { LinearGradient } from "expo-linear-gradient";
+import  Color  from "react-native/Libraries/NewAppScreen";
+import color from "../constants/color";
 
 
 
@@ -10,16 +13,16 @@ const SplashScreen = () => {
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            Navigation.replace('MainTabs')
+            Navigation.replace('Login')
         }, 3000)
         return () => clearTimeout(timer)
     }, [Navigation])
 
     return (
-        <View style={Styles.container}>
+        <LinearGradient colors={color.gradientePrimario} style={Styles.container}>
             <Text>Loading...</Text>
             <Image source={require('../assets/Logo.png')} Styles={Styles.logo} />
-        </View>
+        </LinearGradient>
     )
 
 }
@@ -28,15 +31,19 @@ const SplashScreen = () => {
 const Styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
+        height: '100%',
+        width: '100%',
+        
     },
     logo: {
         alignItems: 'center',
         justifyContent: 'center',
-        height: 'auto',
-        width: 'auto'
+        height: 100,
+        maxWidth: 100,
+        
+
     }
 });
 
