@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native'
 import { useAuth } from '../context/AuthContext'
 
 const UserScreen = ({navigation}) => {
-  const {user}=useAuth()
+  
  return (
     <View style>
       <Text>UserScreen</Text>

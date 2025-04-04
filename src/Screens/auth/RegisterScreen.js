@@ -1,108 +1,98 @@
-import React ,{useState}from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import React, { useState } from "react";
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from "react-native";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth } from '../../services/firebaseConfig';
+import { auth } from "../../services/firebaseConfig";
+import color from "../../constants/color";
 
-const RegisterScreen = ({navigation}) =>{
-      const [email, setEmail] = useState('');
-      const [password, setPassword] = useState('');
-      const [error, setError] = useState('');
-      const [errorMensaje, setErrorMensaje] = useState('');
+const RegisterScreen = ({ navigation }) => {
+  const [Name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [errorMensaje, setErrorMensaje] = useState('');
 
-     const handleRegister = () => {
-        createUserWithEmailAndPassword (auth, email, password).then((userCredential)=>{
-            const user= userCredential.user
-            updateProfile(user,{
-                displayName: Name
-            }).then(()=>{
-                console.log("Usuario registrado con nombre",user.displayName);
-                navigation.navigate('login',{screen:"LoginScreen"})
-            }).catch((error) => {
-                setError(true);
-                setErrorMensaje(error.message);
-            })
-            .catch((error) => {
-                setError(true);
-                setErrorMensaje(error.message);
+  const handleRegister = () => {
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        return updateProfile(user, { displayName: Name });
+      })
+      .then(() => {
+        console.log("Usuario registrado con nombre:", Name);
+        navigation.navigate("LoginScreen");
+      })
+      .catch((error) => {
+        setError(true);
+        setErrorMensaje(error.message);
+      });
+  };
 
-            })
+  return (
+    <View style={styles.container}>
+      <Image source={require("../../../assets/ImagenLogin.png")} style={styles.logo} />
+      <Text style={styles.title}>Crea una Cuenta</Text>
 
-     return(
-     <View style={styles.container}>
-           <Image source={require('../../../assets/ImagenLogin.png')} style={styles.logo} />
-           <Text style={styles.title}>Crea una Cuenta</Text>
-           
-           <Icon name="account-outline" size={24} style={styles.icon} />
-     
-           <View style={styles.container}>
-            <Icon name="account-outline" size={24} style={styles.icon} />
-             <TextInput
-             placeholder="nombre"
-             value={Name}
-             onChangeText={setName}/>
-           </View>
+      <View style={styles.inputContainer}>
+        <Icon name="account-outline" size={24} style={styles.icon} />
+        <TextInput placeholder="Nombre" value={Name} onChangeText={setName} style={styles.input} />
+      </View>
 
-           <View style={styles.container}>
-           <Icon name="email-outline" size={24} style={styles.icon} />
-            <TextInput
-             placeholder="email"
-             value={email}
-             onChangeText={setEmail}/>
-           </View>
+      <View style={styles.inputContainer}>
+        <Icon name="email-outline" size={24} style={styles.icon} />
+        <TextInput placeholder="Email" value={email} onChangeText={setEmail} style={styles.input} />
+      </View>
 
-           <View style={styles.container}>
-           <Icon name="email-outline" size={24} style={styles.icon} />
-            <TextInput
-             placeholder="email"
-             value={email}
-             onChangeText={setEmail}/>
-           </View>
+      <View style={styles.inputContainer}>
+        <Icon name="lock-outline" size={24} style={styles.icon} />
+        <TextInput placeholder="Contraseña" value={password} onChangeText={setPassword} secureTextEntry style={styles.input} />
+      </View>
 
-           <View style={styles.container}>
-           <Icon name="lock-outline" size={24} style={styles.icon} />
-            <TextInput
-             placeholder="contraseña"
-             value={password}
-             onChangeText={setPassword}/>
-           </View>
-            <TouchableOpacity style={styles.buttonText} onPress={handleRegister}>
-                <Text style={styles.registerButtonText}>Crear cuenta</Text>
-            </TouchableOpacity>
+      {error && <Text style={styles.errorMessage}>{errorMensaje}</Text>}
 
-            <View styles={styles.loginContainer}>
-                <Text style={styles.loginText}>¿Ya tienes una cuenta?</Text>
-                <TouchableOpacity onPress={()=> navigation.navigate('login')}>
-                <Text style={styles.loginText}>Iniciar Sesión</Text>
+      <TouchableOpacity style={styles.button} onPress={handleRegister}>
+        <Text style={styles.buttonText}>Crear cuenta</Text>
+      </TouchableOpacity>
 
-                </TouchableOpacity>
-            </View>
-           
-     
-         
-         </View>
-    )
-}
+      <View style={styles.loginContainer}>
+        <Text style={styles.loginText}>¿Ya tienes una cuenta?</Text>
+        <TouchableOpacity onPress={() => navigation.navigate("LoginScreen")}>
+          <Text style={styles.loginLink}>Iniciar Sesión</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: color.variante1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     paddingHorizontal: 30,
   },
   logo: {
     width: 100,
     height: 100,
-    resizeMode: 'contain',
+    resizeMode: "contain",
     marginBottom: 30,
   },
   title: {
     fontSize: 18,
     color: color.principal,
-    fontWeight: '600',
+    fontWeight: "600",
     marginBottom: 20,
+  },
+  inputContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: color.variante2,
+    borderRadius: 10,
+    marginBottom: 15,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: color.gradienteSecundario,
   },
   input: {
     flex: 1,
@@ -121,14 +111,27 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   buttonText: {
-    color: 'fff',
+    color: "#fff",
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
-  inputWrapper: {
-    width: '100%',
-    marginBottom: 15,
+  loginContainer: {
+    flexDirection: "row",
+  },
+  loginText: {
+    color: color.variante3,
+    fontSize: 14,
+  },
+  loginLink: {
+    marginLeft: 5,
+    color: color.variante3,
+    fontWeight: "bold",
+  },
+  errorMessage: {
+    color: "red",
+    fontSize: 14,
+    marginBottom: 10,
   },
 });
 
-export default RegisterScreen
+export default RegisterScreen;
