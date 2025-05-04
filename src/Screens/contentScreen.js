@@ -28,4 +28,4 @@ const Styles =StyleSheet.create({
 });
 
 
-export default contentScreen
+export default contentScreen;

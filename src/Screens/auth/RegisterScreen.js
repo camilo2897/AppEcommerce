@@ -5,6 +5,7 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../../services/firebaseConfig";
 import color from "../../constants/color";
 
+
 const RegisterScreen = ({ navigation }) => {
   const [Name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -56,7 +57,7 @@ const RegisterScreen = ({ navigation }) => {
 
       <View style={styles.loginContainer}>
         <Text style={styles.loginText}>¿Ya tienes una cuenta?</Text>
-        <TouchableOpacity onPress={() => navigation.navigate("LoginScreen")}>
+        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
           <Text style={styles.loginLink}>Iniciar Sesión</Text>
         </TouchableOpacity>
       </View>
