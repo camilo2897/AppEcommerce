@@ -4,11 +4,11 @@
     "slug": "AppEcommerce",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon":"../assets/icon.png",
+    "icon": "./assets/Logo.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/splash-icon.png",
+      "image": "./assets/Logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -17,12 +17,18 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/icon.png",
+        "foregroundImage": "./assets/Ecommerce.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.camilo27.AppEcommerce"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/Logo.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "c62ff268-2caa-4c27-ac54-43c9a47c5e38"
+      }
     }
   }
 }

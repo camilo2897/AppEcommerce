@@ -23,7 +23,7 @@ const SettingsScreen = () => {
   const [isImageModalVisible, setImageModalVisible] = useState(false);
 
   useEffect(() => {
-    if (user && user.photoURL) {
+    if (user?.photoURL) {
       setImageUri(user.photoURL);
     } else {
       setImageUri(defaultImage);
@@ -35,60 +35,51 @@ const SettingsScreen = () => {
   };
 
   const handleChooseImage = async () => {
-    try {
-      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-      if (status !== 'granted') {
-        showMessage({
-          message: 'Permiso denegado',
-          description: 'Se necesita permiso para acceder a la galería.',
-          type: 'danger',
-        });
-        return;
-      }
-
-      const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsEditing: true,
-        quality: 1,
-        base64: true,
-      });
-
-      if (result.canceled) {
-        showMessage({
-          message: 'Cancelado',
-          description: 'No se seleccionó ninguna imagen.',
-          type: 'info',
-        });
-        return;
-      }
-
-      setFieldValue(`data:image/jpeg;base64,${result.base64}`);
-      setModalVisible(true);
-    } catch (error) {
-      console.error('Error seleccionando la imagen:', error);
+  try {
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (status !== 'granted') {
       showMessage({
-        message: 'Error',
-        description: 'Ocurrió un error al seleccionar la imagen',
+        message: 'Permiso denegado',
+        description: 'Se necesita permiso para acceder a la galería.',
         type: 'danger',
       });
-    }
-  };
-
-  const uploadImage = async () => {
-    if (!user || !fieldValue) {
-      console.error('Usuario o URI de imagen no válidos:', { user, fieldValue });
       return;
     }
-    try {
-      const isBase64 = fieldValue.startsWith('data:image');
-      let filedata;
-      if (isBase64) {
-        filedata = fieldValue.split(',')[1];
-      } else {
-        console.error('Formato de imagen no soportado:', fieldValue);
-        throw new Error('Formato de imagen no soportado');
-      }
 
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaType?.Images || 'Images', // <-- Aquí la corrección clave
+      allowsEditing: true,
+      quality: 1,
+      base64: true,
+    });
+
+    if (result.canceled) {
+      showMessage({
+        message: 'Cancelado',
+        description: 'No se seleccionó ninguna imagen.',
+        type: 'info',
+      });
+      return;
+    }
+
+    setFieldValue(`data:image/jpeg;base64,${result.assets[0].base64}`);
+    setModalTitle('Foto de perfil');
+    setModalVisible(true);
+  } catch (error) {
+    console.error('Error seleccionando la imagen:', error);
+    showMessage({
+      message: 'Error',
+      description: 'Ocurrió un error al seleccionar la imagen',
+      type: 'danger',
+    });
+  }
+};
+
+  const uploadImage = async () => {
+    if (!user || !fieldValue) return;
+    
+    try {
+      const filedata = fieldValue.split(',')[1];
       const formData = new FormData();
       formData.append('file', filedata);
       formData.append('upload_preset', UPLOAD_PRESET);
@@ -99,8 +90,6 @@ const SettingsScreen = () => {
       });
 
       const data = await response.json();
-      console.log('Respuesta de Cloudinary:', data);
-
       if (data.secure_url) {
         await updateProfile(user, { photoURL: data.secure_url });
         setUser({ ...user, photoURL: data.secure_url });
@@ -137,32 +126,34 @@ const SettingsScreen = () => {
     try {
       if (modalTitle === 'Nombre') {
         await updateProfile(user, { displayName: fieldValue });
-        showMessage({
-          message: 'Nombre actualizado correctamente.',
-          type: 'success',
-        });
+        setUser({ ...user, displayName: fieldValue });
+        showMessage({ message: 'Nombre actualizado correctamente.', type: 'success' });
       } else if (modalTitle === 'Correo') {
         await updateEmail(user, fieldValue);
-        showMessage({
-          message: 'Correo actualizado correctamente.',
-          type: 'success',
-        });
+        setUser({ ...user, email: fieldValue });
+        showMessage({ message: 'Correo actualizado correctamente.', type: 'success' });
       } else if (modalTitle === 'Contraseña') {
         await updatePassword(user, fieldValue);
-        showMessage({
-          message: 'Contraseña actualizada correctamente.',
-          type: 'success',
-        });
+        showMessage({ message: 'Contraseña actualizada correctamente.', type: 'success' });
       } else if (modalTitle === 'Foto de perfil') {
         await uploadImage();
       }
     } catch (error) {
       console.error('Error actualizando datos:', error);
-      showMessage({
-        message: 'Error',
-        description: error.message,
-        type: 'danger',
-      });
+      if (error.code === 'auth/requires-recent-login') {
+        showMessage({
+          message: 'Reautenticación requerida',
+          description: 'Por seguridad, vuelve a iniciar sesión para actualizar esta información.',
+          type: 'warning',
+        });
+        
+      } else {
+        showMessage({
+          message: 'Error',
+          description: error.message,
+          type: 'danger',
+        });
+      }
     } finally {
       setModalVisible(false);
     }
@@ -261,4 +252,8 @@ const styles = StyleSheet.create({
   },
 });
 
+
+
 export default SettingsScreen;
+
+

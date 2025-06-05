@@ -1,6 +1,6 @@
 import { DefaultTheme } from "@react-navigation/native";
 import color from "./color";
-import { Colors } from "react-native/Libraries/NewAppScreen";
+import { color } from "react-native/Libraries/NewAppScreen";
 
 const CusthomTheme = {
     DefaultTheme,

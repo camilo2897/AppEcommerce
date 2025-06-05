@@ -1,15 +1,10 @@
-import React from 'react'
-import { View, Text, TouchableOpacity, Modal, StyleSheet } from 'react-native'
-import color from '../constants/color'
+import React from 'react';
+import { View, Text, TouchableOpacity, Modal, StyleSheet, TextInput } from 'react-native';
+import color from '../constants/color';
 
-function ModalEditProfile(visible, title, value, onChangeText, onSave, onCancel) {
+function ModalEditProfile({ visible, title, value, onChangeText, onSave, onCancel }) {
   return (
-    <Modal
-      animationType="slide"
-      transparent={true}
-      visible={visible}
-      onRequestClose={onCancel}
-    >
+    <Modal animationType="slide" transparent={true} visible={visible} onRequestClose={onCancel}>
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
           <Text style={styles.title}>{title}</Text>
@@ -29,8 +24,53 @@ function ModalEditProfile(visible, title, value, onChangeText, onSave, onCancel)
           </View>
         </View>
       </View>
-    </Modal>    
-  )
+    </Modal>
+  );
 }
 
-export default ModalEditProfile
+const styles = StyleSheet.create({
+  modalContainer: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: '#fff',
+  },
+  modalContent: {
+    fontSize: 16,
+    color: 'blue',
+  },
+  input: {
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+  Title: {
+    fontSize: 20,
+    marginTop: 20,
+  },
+  buttonContainer: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    marginTop: 10,
+  },
+  button: {
+    marginTop: 20,
+  },
+  buttonText: {
+    fontWeight: 'bold',
+  },
+  cancelButton: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    marginTop: 10,
+  },
+  cancelButtonText: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    marginTop: 10,
+  },
+});
+
+
+export default ModalEditProfile;

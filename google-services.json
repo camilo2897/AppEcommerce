@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "233878359614",
+    "project_id": "proyecto-appecommerce",
+    "storage_bucket": "proyecto-appecommerce.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:233878359614:android:9a53b3219ae90e6318cb6f",
+        "android_client_info": {
+          "package_name": "com.company.Appecommerce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "233878359614-8l57kngk4r537j2k3rn8m2ufnlk5r0tr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0L6if_xFgOQP7oVBnvQXQqjLRnMHcOUs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "233878359614-8l57kngk4r537j2k3rn8m2ufnlk5r0tr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

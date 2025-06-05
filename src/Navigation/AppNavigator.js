@@ -4,10 +4,11 @@ import { createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import color from "../constants/color";
 
+
 import SplashScreen from "../Screens/SplashScreen";
 import HomeScreen from "../Screens/HomeScreen";
 import UserScreen from "../Screens/UserScreen";
-import contentScreen from "../Screens/contentScreen";
+import contentScreen from "../Screens/ContentScreen";
 import LoginScreen from "../Screens/auth/LoginScreen";
 import RegisterScreen from "../Screens/auth/RegisterScreen";
 import SettingScreen from "../Screens/SettingScreen";
@@ -37,7 +38,7 @@ const TabNavigator = () => {
 
           <Tab.Screen name="Home" component={HomeScreen} options={{}}/>
           <Tab.Screen name="User" component={UserScreen} options={{}}/>
-          <Tab.Screen name="content" component={contentScreen} options={{}}/>
+          <Tab.Screen name="Content" component={contentScreen} options={{}}/>
           <Tab.Screen name="Login"  component={LoginScreen} options={{}} />
           <Tab.Screen name="Register" component={RegisterScreen} options={{}} />
           <Tab.Screen name="Setting" component={SettingScreen} options={{}} />

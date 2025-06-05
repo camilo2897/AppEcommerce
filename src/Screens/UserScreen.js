@@ -6,6 +6,7 @@ import { useAuth } from '../context/AuthContext';
 import { signOut } from 'firebase/auth';
 import { auth } from '../services/firebaseConfig';
 
+
 const UserScreen = ({navigation}) => {
   const {user} = useAuth()
 
@@ -47,10 +48,10 @@ export const UserScreen1 = ({navigation}) => {
         <Text>{user?.displayName|| "Usuario"}</Text>
         <Text>Hola UserScreen</Text>
         <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-          <Text style={{color: Color.primary}}>Ajustes</Text>
+          <Text style={{color: color.primary}}>Ajustes</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={handleLogout}>
-          <Text style={{color: Color.primary}}>Cerrar sesion</Text>
+          <Text style={{color: color.primary}}>Cerrar sesion</Text>
         </TouchableOpacity>
         <FooterComponent />
     </View>
@@ -65,5 +66,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
 
 export default UserScreen;
